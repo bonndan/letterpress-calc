@@ -1,0 +1,19 @@
+{
+    "name"        : "letterpress-calc",
+    "type"        : "application",
+    "description" : "Calculator for letterpress",
+    "authors"     : [
+        {
+            "name"  : "Daniel Pozzi",
+            "email" : "bonndan76@googlemail.com"
+        }
+    ],
+    "require": {
+        "silex/silex": "1.*"
+    },
+    "autoload": {
+        "psr-0": {
+            "Letterpress": "src/"
+        }
+    }
+}
