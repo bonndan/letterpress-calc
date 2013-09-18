@@ -51,6 +51,26 @@ class LayoutTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(14, $this->calculate($paper, $gangrun));
     }
     
+    public function testGetLengthWaste()
+    {
+        $gangrun = new GangRun(80, 150);
+        $gangrun->setMargin(0);
+        $paper = new PaperSheet('test', 100, 300, PaperSheet::SHORT_GRAIN);
+        $layout = $this->createLayout($paper, $gangrun);
+        
+        $this->assertEquals(20, $layout->getLengthWaste());
+    }
+    
+    public function testGetWidthWaste()
+    {
+        $gangrun = new GangRun(100, 80);
+        $gangrun->setMargin(0);
+        $paper = new PaperSheet('test', 100, 100, PaperSheet::SHORT_GRAIN);
+        $layout = $this->createLayout($paper, $gangrun);
+        
+        $this->assertEquals(20, $layout->getWidthWaste());
+    }
+    
     /**
      * Creates a layout.
      * 
