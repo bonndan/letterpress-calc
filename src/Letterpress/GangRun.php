@@ -57,6 +57,26 @@ class GangRun
     }
     
     /**
+     * Returns the length
+     * 
+     * @return int
+     */
+    public function getInnerLength()
+    {
+        return $this->length;
+    }
+    
+    /**
+     * Returns the width
+     * 
+     * @return int
+     */
+    public function getInnerWidth()
+    {
+        return $this->width;
+    }
+    
+    /**
      * Returns the length plus margins
      * 
      * @return int
@@ -66,6 +86,11 @@ class GangRun
         return $this->length + 2 * $this->margin;
     }
     
+    /**
+     * Returns the width plus margins
+     * 
+     * @return int
+     */
     public function getOuterWidth()
     {
         return $this->width + 2 * $this->margin;

@@ -3,11 +3,33 @@
 
 {% block content %}
 
-<div class="starter-template">
-    <form action="#" method="post">
-        {{ form_widget(form) }}
-        <input type="submit" name="submit" />
-    </form>
+<div class="panel panel-default">
+    <div class="panel-heading">Papier</div>
+    <div class="panel-body">
+        Name: {{ paper.name }}<br />
+        Länge: {{ paper.length }}mm<br />
+        Breite: {{ paper.width }}mm<br />
+        Schmalbahn: {{ paper.isGrain('SHORT_GRAIN') ? 'ja' : 'nein'}}
+    </div>
 </div>
 
+<div class="panel panel-default">
+    <div class="panel-heading">Endformat</div>
+    <div class="panel-body">
+        Innere Länge: {{ gangrun.getInnerLength() }}mm<br />
+        Innere Breite: {{ gangrun.getInnerWidth() }}mm<br />
+        Äußere Länge: {{ gangrun.getOuterLength() }}mm<br />
+        Äußere Breite: {{ gangrun.getOuterWidth() }}mm<br />
+        Rand: {{ gangrun.margin }}mm<br />
+    </div>
+</div>
+
+<div class="panel panel-primary">
+    <div class="panel-heading">Nutzenkalkulation</div>
+    <div class="panel-body">
+        Anzahl Nutzen {{ layout.getNumberOfGangRuns() }}<br />
+        Verlust Länge: {{ layout.getLengthWaste() }}mm<br />
+        Verlust Breite: {{ layout.getWidthWaste() }}mm
+    </div>
+</div>
 {% endblock %}

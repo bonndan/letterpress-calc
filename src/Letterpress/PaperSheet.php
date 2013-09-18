@@ -64,6 +64,16 @@ class PaperSheet
     {
         return $this->width;
     }
+    
+    /**
+     * Returns the name
+     * 
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
 
     /**
      * Check the grain type
