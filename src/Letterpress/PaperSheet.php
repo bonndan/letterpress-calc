@@ -75,26 +75,4 @@ class PaperSheet
     {
         return $this->grain == $grain;
     }
-    
-    /**
-     * Calculates the number of possible gangruns.
-     * 
-     * @param \Letterpress\GangRun $gangrun
-     * @return int
-     */
-    public function getNumberOfGangRuns(GangRun $gangrun)
-    {
-        $lengthRuns  = floor($this->length / $gangrun->getOuterLength());
-        $widthRuns   = floor($this->width / $gangrun->getOuterWidth());
-        
-        if ($lengthRuns == 0) {
-            throw new Exception ('Paper is not long enough: ' . $this->length . 'mm vs. gang run of ' . $gangrun->getOuterLength());
-        }
-        
-        if ($widthRuns == 0) {
-            throw new Exception ('Paper is not wide enough:' . $this->width . 'mm vs. gang run of ' . $gangrun->getOuterWidth());
-        }
-        
-        return $lengthRuns * $widthRuns;
-    }
 }
