@@ -14,7 +14,7 @@ class GangRun
      * 
      * @var int
      */
-    private $margin;
+    private $margin = 15;
     
     /**
      * longer side (mm)
@@ -36,7 +36,7 @@ class GangRun
      * @param int $length
      * @param int $width
      */
-    public function __construct($length, $width, $margin = 7)
+    public function __construct($length, $width)
     {
         if ($length < 0 || $width < 0) {
             throw new \InvalidArgumentException('Length and width must be greater than zero.');
@@ -44,7 +44,6 @@ class GangRun
         
         $this->length = $length;
         $this->width  = $width;
-        $this->margin = $margin;
     }
     
     /**
@@ -80,5 +79,15 @@ class GangRun
     public function getMargin()
     {
         return $this->margin;
+    }
+    
+    /**
+     * Set the margin.
+     * 
+     * @param int $margin
+     */
+    public function setMargin($margin)
+    {
+        $this->margin = $margin;
     }
 }
