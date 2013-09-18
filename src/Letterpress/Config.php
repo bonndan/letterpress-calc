@@ -6,8 +6,23 @@ class Config
 {
     private $papers = array();
     
-    public function addPaper(Paper $paper)
+    /**
+     * Add a paper type.
+     * 
+     * @param PaperSheet $paper
+     */
+    public function addPaper(PaperSheet $paper)
     {
         $this->papers[] = $paper;
+    }
+    
+    /**
+     * Returns the available papers.
+     * 
+     * @return PaperSheet[]
+     */
+    public function getPapers()
+    {
+        return $this->papers;
     }
 }
