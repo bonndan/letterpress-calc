@@ -7,6 +7,7 @@ $app['debug'] = true;
 
 $app->register(new Silex\Provider\TwigServiceProvider(), array(
     'twig.path' => dirname(__DIR__) . '/views',
+    'twig.form.templates'   => array('form_div_layout.html.twig'),
 ));
 
 $app->register(new Silex\Provider\TranslationServiceProvider());
@@ -32,7 +33,7 @@ $app['translator.domains'] = array(
 require_once dirname(__DIR__) . '/config/config.php';
 $app['letterpress'] = new Letterpress\Application($app, $config);
 
-$app->get('/', function () use ($app) {
+$app->match('/', function () use ($app) {
     
     $paper = new \Letterpress\PaperSheet('Superpapier nonplusultra', 700, 300, \Letterpress\PaperSheet::SHORT_GRAIN);
     $gangrun = new \Letterpress\GangRun(80, 40);
@@ -48,6 +49,6 @@ $app->get('/', function () use ($app) {
         'layout'  => $layout,
         'layout2' => $layout2,
     ));
-});
+})->method('GET|POST');
 
 $app->run();
