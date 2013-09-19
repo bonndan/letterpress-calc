@@ -9,6 +9,10 @@ namespace Letterpress;
  */
 class GangRun
 {
+    const FOLD_NONE         = 'FOLD_NONE';
+    const FOLD_ALONG_LENGTH = 'FOLD_ALONG_LENGTH';
+    const FOLD_ALONG_WIDTH  = 'FOLD_ALONG_WIDTH';
+    
     /**
      * margin per side (mm)
      * 
@@ -29,6 +33,9 @@ class GangRun
      * @var int
      */
     private $width = 0;
+    
+    private $foldedLength;
+    private $foldedWidth;
     
     /**
      * Constructor.
@@ -114,5 +121,33 @@ class GangRun
     public function setMargin($margin)
     {
         $this->margin = $margin;
+    }
+    
+    public function setFoldedDimensions($length, $width)
+    {
+        $this->foldedLength = $length;
+        $this->foldedWidth  = $width;
+        
+        if ($this->foldedLength != $this->length && $this->foldedWidth != $this->width) {
+            throw new Exception('Folding: Either length or width must remain unchanged.', 400);
+        }
+    }
+    
+    /**
+     * Returns the folding direction.
+     * 
+     * @return string
+     */
+    public function getFold()
+    {
+        if ($this->foldedLength == null) {
+            return self::FOLD_NONE;
+        }
+        
+        if ($this->foldedLength != $this->length) {
+            return self::FOLD_ALONG_WIDTH;
+        } else {
+            return self::FOLD_ALONG_LENGTH;
+        }
     }
 }
