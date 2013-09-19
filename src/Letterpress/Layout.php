@@ -8,8 +8,18 @@ namespace Letterpress;
  */
 class Layout
 {
-
+    /**
+     * the sheet 
+     * 
+     * @var PaperSheet
+     */
     private $sheet;
+    
+    /**
+     * single gang run
+     * 
+     * @var GangRun 
+     */
     private $gangrun;
 
     /**
@@ -22,8 +32,30 @@ class Layout
     {
         $this->sheet = $sheet;
         $this->gangrun = $gangrun;
+        $this->assertFoldingIsPossible();
     }
 
+    /**
+     * Asserts that folding is possible with the given grain.
+     * 
+     * 
+     */
+    private function assertFoldingIsPossible()
+    {
+        $fold = $this->gangrun->getFold();
+        if ($fold == GangRun::FOLD_NONE) {
+            return;
+        }
+        
+        if ($this->sheet->isGrain(PaperSheet::SHORT_GRAIN) && $fold == GangRun::FOLD_ALONG_LENGTH) {
+            throw new Exception('Short grain paper prohibits folding along length', 500);
+        }
+        
+        if ($this->sheet->isGrain(PaperSheet::LONG_GRAIN) && $fold == GangRun::FOLD_ALONG_WIDTH) {
+            throw new Exception('Long grain paper prohibits folding along width', 500);
+        }
+    }
+    
     /**
      * Calculates the number of possible gangruns.
      * 

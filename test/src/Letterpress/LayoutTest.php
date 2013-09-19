@@ -72,6 +72,56 @@ class LayoutTest extends \PHPUnit_Framework_TestCase
     }
     
     /**
+     * Short grain: grain parallel to length
+     */
+    public function testFoldingIsPossible()
+    {
+        $gangrun = new GangRun(100, 80);
+        $gangrun->setFoldedDimensions(50, 80);
+        //just to be sure
+        $this->assertEquals(GangRun::FOLD_ALONG_WIDTH, $gangrun->getFold());
+        
+        $paper = new PaperSheet('test', 100, 100, PaperSheet::SHORT_GRAIN);
+
+        $this->setExpectedException(null);
+        $this->createLayout($paper, $gangrun);
+    }
+    
+    /**
+     * Short grain: grain parallel to length
+     * Fold along length => with grain
+     */
+    public function testFoldingIsNotPossibleWithShortGrain()
+    {
+        $gangrun = new GangRun(100, 80);
+        $gangrun->setFoldedDimensions(100, 40);
+        //just to be sure
+        $this->assertEquals(GangRun::FOLD_ALONG_LENGTH, $gangrun->getFold());
+        
+        $paper = new PaperSheet('test', 100, 100, PaperSheet::SHORT_GRAIN);
+
+        $this->setExpectedException("\Letterpress\Exception");
+        $this->createLayout($paper, $gangrun);
+    }
+    
+    /**
+     * long grain: grain parallel to width
+     * Fold along width => with grain
+     */
+    public function testFoldingIsNotPossibleWithLongGrain()
+    {
+        $gangrun = new GangRun(100, 80);
+        $gangrun->setFoldedDimensions(50, 80);
+        //just to be sure
+        $this->assertEquals(GangRun::FOLD_ALONG_WIDTH, $gangrun->getFold());
+        
+        $paper = new PaperSheet('test', 100, 100, PaperSheet::LONG_GRAIN);
+
+        $this->setExpectedException("\Letterpress\Exception");
+        $this->createLayout($paper, $gangrun);
+    }
+    
+    /**
      * Creates a layout.
      * 
      * @param \Letterpress\PaperSheet $paper
