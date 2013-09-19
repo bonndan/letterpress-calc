@@ -9,7 +9,7 @@
         Name: {{ paper.name }}<br />
         Länge: {{ paper.length }}mm<br />
         Breite: {{ paper.width }}mm<br />
-        Schmalbahn: {{ paper.isGrain('SHORT_GRAIN') ? 'ja' : 'nein'}}
+        {{ paper.isGrain('LONG_GRAIN') ? 'long grain' : 'short grain' | trans}}
     </div>
 </div>
 
@@ -18,12 +18,17 @@
     <div class="panel-body">
         Innere Länge: {{ gangrun.getInnerLength() }}mm<br />
         Innere Breite: {{ gangrun.getInnerWidth() }}mm<br />
+        Faltung: {{ gangrun.getFold() | trans}}<br />
+        Gefaltete Länge: {{ gangrun.getFoldedLength() }}mm<br />
+        Gefaltete Breite: {{ gangrun.getFoldedWidth() }}mm<br />
+        <hr />
         Äußere Länge: {{ gangrun.getOuterLength() }}mm<br />
         Äußere Breite: {{ gangrun.getOuterWidth() }}mm<br />
         Rand: {{ gangrun.margin }}mm<br />
     </div>
 </div>
 
+{% if layout is not null %}
 <div class="panel panel-primary">
     <div class="panel-heading">Nutzenkalkulation</div>
     <div class="panel-body">
@@ -32,7 +37,16 @@
         Verlust Breite: {{ layout.getWidthWaste() }}mm
     </div>
 </div>
+{% else %}
+<div class="panel panel-danger">
+    <div class="panel-heading">Nutzenkalkulation</div>
+    <div class="panel-body">
+        Der Druck des unrotierten Endformats ist nicht möglich.
+    </div>
+</div>
+{% endif %}
 
+{% if layout2 is not null %}
 <div class="panel panel-primary">
     <div class="panel-heading">Nutzenkalkulation (rotiert)</div>
     <div class="panel-body">
@@ -41,4 +55,12 @@
         Verlust Breite: {{ layout2.getWidthWaste() }}mm
     </div>
 </div>
+{% else %}
+<div class="panel panel-danger">
+    <div class="panel-heading">Nutzenkalkulation (rotiert)</div>
+    <div class="panel-body">
+        Der Druck des rotierten Endformats ist nicht möglich.
+    </div>
+</div>
+{% endif %}
 {% endblock %}
