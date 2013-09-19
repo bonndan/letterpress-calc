@@ -9,8 +9,17 @@ namespace Letterpress;
  */
 class PaperSheet
 {
-    const LONG_GRAIN  = 'LONG_GRAIN'; //Schmalbahn
-    const SHORT_GRAIN = 'SHORT_GRAIN'; //Breitbahn
+    /**
+     * Schmalbahn
+     * @var string
+     */
+    const LONG_GRAIN  = 'LONG_GRAIN';
+    
+    /**
+     * Breitbahn
+     * @var string
+     */
+    const SHORT_GRAIN = 'SHORT_GRAIN';
     
     /**
      * name of the paper
