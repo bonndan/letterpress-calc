@@ -53,11 +53,20 @@ class Application
     public function getForm()
     {
         $form = $this->app['form.factory']->createBuilder('form', array())
-        ->add('name')
-        ->add('email')
-        ->add('gender', 'choice', array(
-            'choices' => array(1 => 'male', 2 => 'female'),
-            'expanded' => true,
+        ->add('paper', 'choice', array(
+            'choices' => $this->config->getPapers(),
+        ))
+        ->add('colors', 'choice', array(
+            'choices' => array_combine(range(1, 4), range(1, 4))
+        ))
+        ->add('forms', 'choice', array(
+            'choices' => array_combine(range(1, 4), range(1, 4))
+        ))
+        ->add('shape_length', 'integer',array(
+            'max_length' => 4
+        ))
+        ->add('shape_width', 'integer',array(
+            'max_length' => 4
         ))
         ->getForm();
         return $form;
