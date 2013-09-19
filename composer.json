@@ -11,6 +11,7 @@
     "require": {
         "silex/silex": "1.*",
         "twitter\/bootstrap"  : "v3.0.0",
+        "sanpi/twitter-bootstrap-installer": "dev-master",
         "symfony/twig-bridge" : "~2.3",
         "symfony/form"        : "~2.3",
         "symfony/validator"   : "~2.3",
@@ -21,5 +22,12 @@
         "psr-0": {
             "Letterpress": "src/"
         }
+    },
+    "scripts": {
+        "post-install-cmd": "Sanpi\\TwitterBootstrap\\Composer\\ScriptHandler::postInstall",
+        "post-update-cmd": "Sanpi\\TwitterBootstrap\\Composer\\ScriptHandler::postUpdate"
+    },
+    "extra": {
+        "symfony-web-dir": "web"
     }
 }
