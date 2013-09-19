@@ -60,7 +60,11 @@ class GangRun
      */
     public function rotate()
     {
-        return new GangRun($this->width, $this->length);
+        $gangrun = new GangRun($this->width, $this->length);
+        if ($this->getFold() != self::FOLD_NONE) {
+            $gangrun->setFoldedDimensions($this->foldedWidth, $this->foldedLength);
+        }
+        return $gangrun;
     }
     
     /**
@@ -101,6 +105,26 @@ class GangRun
     public function getOuterWidth()
     {
         return $this->width + 2 * $this->margin;
+    }
+    
+    /**
+     * Returns the folded length
+     * 
+     * @return int
+     */
+    public function getFoldedLength()
+    {
+        return $this->foldedLength;
+    }
+    
+    /**
+     * Returns the folded width
+     * 
+     * @return int
+     */
+    public function getFoldedWidth()
+    {
+        return $this->foldedWidth;
     }
     
     /**
