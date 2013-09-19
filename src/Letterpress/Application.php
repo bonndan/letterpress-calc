@@ -29,6 +29,22 @@ class Application
     }
     
     /**
+     * Creates a layout if possible
+     * 
+     * @param \Letterpress\PaperSheet $sheet
+     * @param \Letterpress\GangRun $gangrun
+     * @return null|\Letterpress\Layout
+     */
+    public function getLayoutFor(PaperSheet $sheet, GangRun $gangrun)
+    {
+        try {
+            return new \Letterpress\Layout($sheet, $gangrun);
+        } catch (Exception $exception) {
+            return null;
+        }
+    }
+    
+    /**
      * Creates the form.
      * 
      * @param array $data
