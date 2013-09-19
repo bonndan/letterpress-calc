@@ -94,4 +94,14 @@ class PaperSheet
     {
         return $this->grain == $grain;
     }
+    
+    /**
+     * Returns a string representation.
+     * 
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->name . ' ' . $this->length . 'mm x ' . $this->width . 'mm ' . $this->grain;
+    }
 }
