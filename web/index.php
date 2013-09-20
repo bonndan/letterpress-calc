@@ -27,8 +27,16 @@ $app['translator.domains'] = array(
             'long grain' => 'Breitahn (Faser parallel zur Breite)',
             'Paper' => 'Papier',
             'Colors' => 'Farben',
-            'Shape length' => 'Länge des Endformats',
-            'Shape width' => 'Breite des Endformats',
+            'Shape length' => 'Länge des Endformats (mm)',
+            'Shape width' => 'Breite des Endformats (mm)',
+            'Fold length' => 'Gefältete Länge (mm)',
+            'Fold width' => 'Gefältete Breite (mm)',
+            'Prints' => 'Anzahl der Excemplare',
+            'Forms' => 'Anzahl der Formen',
+            'Count' => 'Menge',
+            'Description' => 'Beschreibung',
+            'Price' => 'Einzelpreis',
+            'Sum' => 'Preis',
         ),
     ),
 );
@@ -55,9 +63,16 @@ $app->match('/', function (Request $request) use ($app) {
         $data  = $form->getData();
         $paper = $letterpress->getPaper($data['paper']);
         $gangrun = new \Letterpress\GangRun($data['shape_length'], $data['shape_width']);
-        $gangrun->setFoldedDimensions($data['fold_length'], $data['fold_width']);
-        $layout  = $app['letterpress']->getLayoutFor($paper, $gangrun);
-        $layout2 = $app['letterpress']->getLayoutFor($paper, $gangrun->rotate());
+        if ($data['fold_length'] != 0) {
+            $gangrun->setFoldedDimensions($data['fold_length'], $data['fold_width']);
+        }
+        
+        $layout  = $letterpress->getLayoutFor($paper, $gangrun);
+        $layout2 = $letterpress->getLayoutFor($paper, $gangrun->rotate());
+        $order   = $letterpress->createOrder();
+        $order->setForms($data['forms']);
+        $order->setColors($data['colors']);
+        $order->countSheets($paper, $data['prints'], $layout, $layout2);
     }
     
     
@@ -67,6 +82,7 @@ $app->match('/', function (Request $request) use ($app) {
         'gangrun' => $gangrun,
         'layout'  => $layout,
         'layout2' => $layout2,
+        'order'   => $order,
     ));
 })->method('GET|POST');
 
