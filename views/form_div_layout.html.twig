@@ -20,7 +20,7 @@
     {% elseif attr.append_input is defined and attr.append_input is not empty %}
         {{ block('form_widget_append_input') }}
     {% else %}
-        <input type="{{ type }}" {{ block('widget_attributes') }} {% if value is not empty %}value="{{ value }}" {% endif %}>
+        <input class="form-control" type="{{ type }}" {{ block('widget_attributes') }} {% if value is not empty %}value="{{ value }}" {% endif %}>
     {% endif %}
     {% if attr.help_block is defined %}
         {{ block('help_block') }}
@@ -110,7 +110,7 @@
 
 {% block choice_widget_collapsed %}
 {% spaceless %}
-    <select {{ block('widget_attributes') }}{% if multiple %} multiple="multiple"{% endif %}>
+    <select class="form-control" {{ block('widget_attributes') }}{% if multiple %} multiple="multiple"{% endif %}>
         {% if empty_value is not none %}
             <option value="">{{ empty_value|trans({}, translation_domain) }}</option>
         {% endif %}
