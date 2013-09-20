@@ -5,44 +5,52 @@ namespace Letterpress;
 class Order
 {
     /**
-     * paper arc
+     * configuration
      * 
-     * @var Arc
+     * @var Config
      */
-    private $arc;
+    private $config;
     
-    private $colors;
+    /**
+     * positions
+     * 
+     * @var Position[]
+     */
+    private $positions = array();
     
-    private $paper;
+    public function __construct(Config $config)
+    {
+        $this->config = $config;
+    }
     
-    public function getArc()
+    public function setForms($count)
     {
-        return $this->arc;
+        $this->addPosition($count, 'Formen a €10,00', $count * 10.00);
     }
-
-    public function setArc(Arc $arc)
+    
+    public function setColors($count)
     {
-        $this->arc = $arc;
+        $this->addPosition($count, $count . ' Farben: Maschine waschen a €10,00', $count * 10.00);
     }
-
-    public function getColors()
+    
+    /**
+     * add a position
+     * 
+     * @param string $description
+     * @param float  $price
+     */
+    private function addPosition($count, $description, $price)
     {
-        return $this->colors;
+        $this->positions[] = new Position($count, $description, $price);
     }
-
-    public function addColor(Color $color)
+    
+    /**
+     * Returns all positions.
+     * 
+     * @return Position[]
+     */
+    public function getPositions()
     {
-        $this->colors[] = $color;
+        return $this->positions;
     }
-
-    public function getPaper()
-    {
-        return $this->paper;
-    }
-
-    public function setPaper(Paper $paper)
-    {
-        $this->paper = $paper;
-    }
-
 }
