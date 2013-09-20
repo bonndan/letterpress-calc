@@ -29,6 +29,18 @@ class Application
     }
     
     /**
+     * Returns a paper
+     * 
+     * @param int $id
+     * @return PaperSheet
+     */
+    public function getPaper($id)
+    {
+        $papers = $this->config->getPapers();
+        return $papers[$id];
+    }
+    
+    /**
      * Creates a layout if possible
      * 
      * @param \Letterpress\PaperSheet $sheet
@@ -66,6 +78,12 @@ class Application
             'max_length' => 4
         ))
         ->add('shape_width', 'integer',array(
+            'max_length' => 4
+        ))
+        ->add('fold_length', 'integer',array(
+            'max_length' => 4
+        ))
+        ->add('fold_width', 'integer',array(
             'max_length' => 4
         ))
         ->getForm();

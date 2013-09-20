@@ -2,6 +2,8 @@
 
 require_once __DIR__.'/../vendor/autoload.php';
 
+use Symfony\Component\HttpFoundation\Request;
+
 $app = new Silex\Application();
 $app['debug'] = true;
 
@@ -23,6 +25,10 @@ $app['translator.domains'] = array(
             Letterpress\GangRun::FOLD_ALONG_LENGTH    => 'längs (parallel zur Länge)',
             'short grain' => 'Schmalbahn (Faser parallel zur Länge)',
             'long grain' => 'Breitahn (Faser parallel zur Breite)',
+            'Paper' => 'Papier',
+            'Colors' => 'Farben',
+            'Shape length' => 'Länge des Endformats',
+            'Shape width' => 'Breite des Endformats',
         ),
     ),
 );
@@ -33,17 +39,30 @@ $app['translator.domains'] = array(
 require_once dirname(__DIR__) . '/config/config.php';
 $app['letterpress'] = new Letterpress\Application($app, $config);
 
-$app->match('/', function () use ($app) {
+/**
+ * Index Action
+ * 
+ * 
+ * 
+ */
+$app->match('/', function (Request $request) use ($app) {
     
-    $paper = new \Letterpress\PaperSheet('Superpapier nonplusultra', 700, 300, \Letterpress\PaperSheet::SHORT_GRAIN);
-    $gangrun = new \Letterpress\GangRun(80, 40);
-    $gangrun->setFoldedDimensions(40, 40);
+    $letterpress = $app['letterpress']; /* @var $letterpress \Letterpress\Application */
+    $form = $letterpress->getForm();
+    $form->bind($request);
     
-    $layout  = $app['letterpress']->getLayoutFor($paper, $gangrun);
-    $layout2 = $app['letterpress']->getLayoutFor($paper, $gangrun->rotate());
+    if ($request->isMethod('POST')) {
+        $data  = $form->getData();
+        $paper = $letterpress->getPaper($data['paper']);
+        $gangrun = new \Letterpress\GangRun($data['shape_length'], $data['shape_width']);
+        $gangrun->setFoldedDimensions($data['fold_length'], $data['fold_width']);
+        $layout  = $app['letterpress']->getLayoutFor($paper, $gangrun);
+        $layout2 = $app['letterpress']->getLayoutFor($paper, $gangrun->rotate());
+    }
+    
     
     return $app['twig']->render('index.html.twig', array(
-        'form'    => $app['letterpress']->getForm()->createView(),
+        'form'    => $form->createView(),
         'paper'   => $paper,
         'gangrun' => $gangrun,
         'layout'  => $layout,
