@@ -65,6 +65,9 @@ class Application
     public function getForm()
     {
         $form = $this->app['form.factory']->createBuilder('form', array())
+        ->add('prints', 'integer', array(
+            'max_length' => 4
+        ))
         ->add('paper', 'choice', array(
             'choices' => $this->config->getPapers(),
         ))
@@ -88,5 +91,15 @@ class Application
         ))
         ->getForm();
         return $form;
+    }
+    
+    /**
+     * Creates a new order.
+     * 
+     * @return \Letterpress\Order
+     */
+    public function createOrder()
+    {
+        return new Order($this->config);
     }
 }
