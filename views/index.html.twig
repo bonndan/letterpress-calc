@@ -81,13 +81,15 @@
             <th>{{ 'Count' | trans }}</th>
             <th>{{ 'Description' | trans }}</th>
             <th>{{ 'Price' | trans }}</th>
+            <th>{{ 'Sum' | trans }}</th>
         </tr>
 
         {% for position in order.getPositions() %}
         <tr>
             <td>{{ position.count }}</td>
             <td>{{ position.description }}</td>
-            <td>{{ position.price }}</td>
+            <td>{{ position.price | number_format(2, '.', ',')}}</td>
+            <td>{{ position.total | number_format(2, '.', ',')}}</td>
         </tr>
         {% endfor %}
     </table>
