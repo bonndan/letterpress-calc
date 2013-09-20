@@ -49,19 +49,28 @@ class PaperSheet
     private $grain;
     
     /**
+     * price per sheet
+     * 
+     * @var float
+     */
+    private $price;
+    
+    /**
      * Constructor.
      * 
      * @param string $name
      * @param int    $length
      * @param int    $width
      * @param string $grain
+     * @param float  $price
      */
-    public function __construct($name, $length, $width, $grain)
+    public function __construct($name, $length, $width, $grain, $price)
     {
         $this->name   = $name;
         $this->length = $length;
         $this->width  = $width;
         $this->grain  = $grain;
+        $this->price  = $price;
     }
 
     public function getLength()
@@ -93,6 +102,16 @@ class PaperSheet
     public function isGrain($grain)
     {
         return $this->grain == $grain;
+    }
+    
+    /**
+     * Returns the price per sheet.
+     * 
+     * @return float
+     */
+    public function getPrice()
+    {
+        return $this->price;
     }
     
     /**
