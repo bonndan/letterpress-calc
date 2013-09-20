@@ -32,7 +32,11 @@ class Layout
     {
         $this->sheet = $sheet;
         $this->gangrun = $gangrun;
+        
+        //challenge exceptions
         $this->assertFoldingIsPossible();
+        $this->getLengthRuns();
+        $this->getWidthRuns();
     }
 
     /**
