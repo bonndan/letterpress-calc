@@ -22,6 +22,9 @@ return array(
             'Description' => 'Beschreibung',
             'Price' => 'Einzelpreis',
             'Sum' => 'Preis',
+            
+            //errors
+            'The chosen paper is too small.' => 'Das gewählte Papier ist zu klein.'
         ),
     ),
 );
