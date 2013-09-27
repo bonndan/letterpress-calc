@@ -121,6 +121,6 @@ class PaperSheet
      */
     public function __toString()
     {
-        return $this->name . ' ' . $this->length . 'mm x ' . $this->width . 'mm ' . $this->grain;
+        return $this->name . ' ' . $this->length . 'mm x ' . $this->width . 'mm';
     }
 }
