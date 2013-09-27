@@ -13,17 +13,7 @@
     </div>
 </div>
 
-{% if paper is not null %}
-    <div class="panel panel-default">
-        <div class="panel-heading">Papier</div>
-        <div class="panel-body">
-            Name: {{ paper.name }}<br />
-            Länge: {{ paper.length }}mm<br />
-            Breite: {{ paper.width }}mm<br />
-            {{ paper.isGrain('LONG_GRAIN') ? 'long grain' : 'short grain' | trans}}
-        </div>
-    </div>
-
+{% if order is not null %}
 
     <div class="panel panel-default">
         <div class="panel-heading">Endformat</div>
@@ -31,8 +21,10 @@
             Innere Länge: {{ gangrun.getInnerLength() }}mm<br />
             Innere Breite: {{ gangrun.getInnerWidth() }}mm<br />
             Faltung: {{ gangrun.getFold() | trans}}<br />
+            {% if gangrun.getFoldedLength() %}
             Gefaltete Länge: {{ gangrun.getFoldedLength() }}mm<br />
             Gefaltete Breite: {{ gangrun.getFoldedWidth() }}mm<br />
+            {% endif %}
             <hr />
             Äußere Länge: {{ gangrun.getOuterLength() }}mm<br />
             Äußere Breite: {{ gangrun.getOuterWidth() }}mm<br />

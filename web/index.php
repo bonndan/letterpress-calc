@@ -58,6 +58,7 @@ $app->match('/', function (Request $request) use ($app) {
         } catch (Letterpress\Exception $exception) {
             $flashBag = $app['session']->getFlashBag();
             $flashBag->add('danger', $exception->getMessage());
+            $order = null;
         }
     }
     
