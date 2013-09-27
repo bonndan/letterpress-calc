@@ -12,34 +12,13 @@ $app->register(new Silex\Provider\TwigServiceProvider(), array(
     'twig.form.templates'   => array('form_div_layout.html.twig'),
 ));
 
-$app->register(new Silex\Provider\TranslationServiceProvider());
 $app->register(new Silex\Provider\FormServiceProvider());
-$app->register(new Silex\Provider\TranslationServiceProvider(), array(
-    'locale_fallback' => 'de',
-));
 
-$app['translator.domains'] = array(
-    'messages' => array(
-        'de' => array(
-            Letterpress\GangRun::FOLD_ALONG_WIDTH     => 'quer (parallel zur Breite)',
-            Letterpress\GangRun::FOLD_ALONG_LENGTH    => 'längs (parallel zur Länge)',
-            'short grain' => 'Schmalbahn (Faser parallel zur Länge)',
-            'long grain' => 'Breitahn (Faser parallel zur Breite)',
-            'Paper' => 'Papier',
-            'Colors' => 'Farben',
-            'Shape length' => 'Länge des Endformats (mm)',
-            'Shape width' => 'Breite des Endformats (mm)',
-            'Fold length' => 'Gefältete Länge (mm)',
-            'Fold width' => 'Gefältete Breite (mm)',
-            'Prints' => 'Anzahl der Excemplare',
-            'Forms' => 'Anzahl der Formen',
-            'Count' => 'Menge',
-            'Description' => 'Beschreibung',
-            'Price' => 'Einzelpreis',
-            'Sum' => 'Preis',
-        ),
-    ),
-);
+/*
+ * translations
+ */
+$app->register(new Silex\Provider\TranslationServiceProvider(), array('locale_fallback' => 'de'));
+$app['translator.domains'] = require_once dirname(__DIR__) . '/config/translations.php';
 
 /*
  * business logic

@@ -84,10 +84,12 @@ class Application
             'max_length' => 4
         ))
         ->add('fold_length', 'integer',array(
-            'max_length' => 4
+            'max_length' => 4,
+            'required' => false
         ))
         ->add('fold_width', 'integer',array(
-            'max_length' => 4
+            'max_length' => 4,
+            'required' => false
         ))
         ->getForm();
         return $form;
