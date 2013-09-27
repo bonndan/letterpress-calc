@@ -81,7 +81,7 @@ class LayoutTest extends \PHPUnit_Framework_TestCase
         //just to be sure
         $this->assertEquals(GangRun::FOLD_ALONG_WIDTH, $gangrun->getFold());
         
-        $paper = new PaperSheet('test', 100, 100, PaperSheet::SHORT_GRAIN);
+        $paper = new PaperSheet('test', 1000, 1000, PaperSheet::SHORT_GRAIN);
 
         $this->setExpectedException(null);
         $this->createLayout($paper, $gangrun);
