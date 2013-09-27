@@ -1,7 +1,11 @@
 <?php
-
 namespace Letterpress;
 
+/**
+ * Represents the final order with all necessary materials and works.
+ * 
+ * 
+ */
 class Order
 {
     /**
@@ -18,6 +22,11 @@ class Order
      */
     private $positions = array();
     
+    /**
+     * paper
+     * 
+     * @var PaperSheet
+     */
     private $paper;
     
     /**
@@ -38,6 +47,7 @@ class Order
      * @param int $prints
      * @param \Letterpress\Layout $layout1
      * @param \Letterpress\Layout $layout2
+     * @throws Exception
      */
     public function countSheets(PaperSheet $paper, $prints, Layout $layout1 = null, Layout $layout2 = null)
     {
@@ -45,6 +55,10 @@ class Order
         $count1 = $layout1 ? $layout1->getNumberOfGangRuns() : 0;
         $count2 = $layout2 ? $layout2->getNumberOfGangRuns() : 0;
         $perSheet = max($count1, $count2);
+        
+        if ($perSheet == 0) {
+            throw new Exception('The chosen paper is too small.');
+        }
         
         $requiredSheets = ceil($prints / $perSheet);
         $this->addPosition($requiredSheets, ' Bögen bei ' . $perSheet . '/Bogen', $paper->getPrice());
