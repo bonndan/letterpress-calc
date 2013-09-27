@@ -64,7 +64,7 @@ class PaperSheet
      * @param string $grain
      * @param float  $price
      */
-    public function __construct($name, $length, $width, $grain, $price)
+    public function __construct($name, $length, $width, $grain, $price = 0)
     {
         $this->name   = $name;
         $this->length = $length;
