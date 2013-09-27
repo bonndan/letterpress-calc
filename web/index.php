@@ -13,6 +13,7 @@ $app->register(new Silex\Provider\TwigServiceProvider(), array(
 ));
 
 $app->register(new Silex\Provider\FormServiceProvider());
+$app->register(new \Silex\Provider\SessionServiceProvider());
 
 /*
  * translations
@@ -49,9 +50,15 @@ $app->match('/', function (Request $request) use ($app) {
         $layout  = $letterpress->getLayoutFor($paper, $gangrun);
         $layout2 = $letterpress->getLayoutFor($paper, $gangrun->rotate());
         $order   = $letterpress->createOrder();
-        $order->setForms($data['forms']);
-        $order->setColors($data['colors']);
-        $order->countSheets($paper, $data['prints'], $layout, $layout2);
+        
+        try {
+            $order->countSheets($paper, $data['prints'], $layout, $layout2);
+            $order->setForms($data['forms']);
+            $order->setColors($data['colors']);
+        } catch (Letterpress\Exception $exception) {
+            $flashBag = $app['session']->getFlashBag();
+            $flashBag->add('danger', $exception->getMessage());
+        }
     }
     
     
